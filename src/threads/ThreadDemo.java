@@ -22,7 +22,7 @@ public class ThreadDemo {
 			
 			Thread r1 = new Thread(()->timmy.move(400));
 			Thread r2 = new Thread(()->tammy.move(400));
-			Threae r3 = new Thread(()->sammy.move(400));
+			Thread r3 = new Thread(()->sammy.move(400));
 			
 			r1.start();
 			r2.start();
