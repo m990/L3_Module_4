@@ -1,5 +1,4 @@
 package threads;
-
 // Below is a completed program that uses brute force to crack a 9-digit password. 
 // On average, the program takes about 0.125 seconds to find the password.
 // Your goal is to re-write the algorithm using Threads. Try to shorten the time it takes 
@@ -10,6 +9,8 @@ package threads;
 
 import java.util.Random;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 public class BruteForceCracker {
 	static long code = (long)(new Random().nextDouble() * 1_000_000_000);
 	
@@ -17,40 +18,40 @@ public class BruteForceCracker {
 	static long endTime;
 	static float elapsedTime;
 	
-	static int codeCheck = 0;
-	static int codeCheck1 = 0;
+	static Thread thread = new Thread();
+	static Thread thread1 = new Thread();
 	
 	public static void main(String[] args) {
 		System.out.println("Starting Brute Force Checker");
 		startTime = System.currentTimeMillis();
 		
-		Thread t = new Thread(() -> checkCode1(codeCheck1));
-		Thread t2 = new Thread(() -> checkCode2(codeCheck));
+		//while(!checkCode(ctr++));
+		thread = new Thread(() -> checkCode());
+		thread1 = new Thread(() -> checkCode1());
 		
-		t.start();
-		t2.start();
+		thread.start();
+		thread1.start();
 		
-		
+		while (thread.isAlive() && thread1.isAlive());
 		
 		endTime = System.currentTimeMillis();
 		elapsedTime = (float)(endTime - startTime);
 		elapsedTime /= 1000.f;
 		System.out.println("Total time taken: " + elapsedTime + " seconds");
 	}
-	public static boolean checkCode1(int p){
-		for (int i = p/2; i > 0; i--) {
-			if (p == code) {
-				return true;
-			}
+	
+	public static void checkCode(){
+		int ctr1 = 0;
+		if(ctr1 == code){
+			
 		}
-		return false;
+		ctr1+=2;
 	}
-	public static boolean checkCode2(int p) {
-		for (int i = p/2; i < p; i++) {
-			if (p == code) {
-				return true;
-			}
+	public static void checkCode1(){
+		int ctr1 = 1;
+		if(ctr1 == code){
+			
 		}
-		return false;
+		ctr1+=2;
 	}
 }
